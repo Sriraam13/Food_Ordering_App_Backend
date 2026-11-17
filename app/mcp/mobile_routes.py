@@ -182,7 +182,12 @@ async def mobile_agent_tool(
                         if query_lower == name_lower:
                             score += 200
                         elif query_lower in name_lower:
-                            score += 100
+                            extra_carriers = ["pulkha", "phulka", "roti", "chapati", "paratha", "combo", "meals", "thali"]
+                            has_unrequested = any(c in name_lower and c not in query_lower for c in extra_carriers)
+                            if not has_unrequested:
+                                score += 100
+                            else:
+                                score += 10
                         
                         # Match individual keywords
                         matched_kw = 0
@@ -212,7 +217,12 @@ async def mobile_agent_tool(
                             if query_lower == g_name:
                                 g_score += 200
                             elif query_lower in g_name:
-                                g_score += 100
+                                extra_carriers = ["pulkha", "phulka", "roti", "chapati", "paratha", "combo", "meals", "thali"]
+                                has_unrequested = any(c in g_name and c not in query_lower for c in extra_carriers)
+                                if not has_unrequested:
+                                    g_score += 100
+                                else:
+                                    g_score += 10
                             g_matched = 0
                             for kw in keywords:
                                 if kw in g_name:
